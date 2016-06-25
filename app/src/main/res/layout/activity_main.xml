@@ -181,7 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/vk"
-                        android:inputType="textMultiLine"
+                        android:inputType="text"
                         android:text="vk.com/makeev_mihail"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -275,7 +275,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/about"
-                        android:inputType="none"
+                        android:inputType="textMultiLine"
                         android:text="Начиная жизнеописание героя моего, Алексея Федоровича Карамазова, нахожусь в некотором недоумении."/>
 
                 </android.support.design.widget.TextInputLayout>

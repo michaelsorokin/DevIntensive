@@ -4,10 +4,12 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Sizes -->
+    <dimen name="size_zero_0">0dp</dimen>
     <dimen name="size_small_24">24dp</dimen>
     <dimen name="size_medium_56">56dp</dimen>
     <dimen name="size_large_72">72dp</dimen>
-    
+    <dimen name="size_large_96">96dp</dimen>
+
     <!-- Spaces -->
     <dimen name="spacing_small_8">8dp</dimen>
     <dimen name="spacing_normal_16">16dp</dimen>
@@ -26,5 +28,7 @@
     <dimen name="typography_small_45">45sp</dimen>
     <dimen name="typography_small_56">56sp</dimen>
     <dimen name="typography_small_112">112sp</dimen>
+
     <dimen name="line_size">2dp</dimen>
+
 </resources>
