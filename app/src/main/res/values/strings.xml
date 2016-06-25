@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Михаил Сорокин</string>
+
+    <string name="about">О Себе</string>
+    <string name="repository">Репозиторий</string>
+    <string name="vk">Профиль в VK</string>
+    <string name="e_mail">E-mail</string>
+    <string name="mobile">Мобильный телефон</string>
+
 </resources>

@@ -24,5 +24,24 @@
         <item name="android:layout_marginTop">@dimen/spacing_medial_24</item>
         <item name="android:layout_marginRight">@dimen/spacing_medium_32</item>
     </style>
+
+    <style name="box_container">
+         <item name="android:layout_width">@dimen/size_zero_0</item>
+         <item name="android:layout_height">@dimen/size_large_72</item>
+         <item name="android:gravity">center</item>
+         <item name="android:orientation">vertical</item>
+         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="text.title" parent="text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     
 </resources>
