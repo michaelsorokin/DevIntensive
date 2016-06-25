@@ -26,8 +26,5 @@
     <dimen name="typography_small_45">45sp</dimen>
     <dimen name="typography_small_56">56sp</dimen>
     <dimen name="typography_small_112">112sp</dimen>
-
-
-
-
+    <dimen name="line_size">2dp</dimen>
 </resources>
