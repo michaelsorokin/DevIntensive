@@ -1,12 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primaryDark</item>
         <item name="colorAccent">@color/color_accent</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="icon">
         <item name="android:layout_width">@dimen/size_small_24</item>
@@ -27,21 +36,30 @@
 
     <style name="box_container">
          <item name="android:layout_width">@dimen/size_zero_0</item>
-         <item name="android:layout_height">@dimen/size_large_72</item>
+         <item name="android:layout_height">@dimen/size_medium_56</item>
          <item name="android:gravity">center</item>
          <item name="android:orientation">vertical</item>
-         <item name="android:layout_weight">1</item>
+         <item name="android:layout_weight">.25</item>
+    </style>
+
+    <style name="box_container.box_container_middle">
+        <item name="android:layout_weight">.5</item>
     </style>
 
     <style name="text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="text.title" parent="text">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    
+
+    <style name="custom_dialog">
+        <item name="android:fullDark">@android:color/transparent</item>
+    </style>
+
 </resources>
