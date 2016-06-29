@@ -14,7 +14,7 @@
         android:id="@+id/main_coordinator_container"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
-        
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar_layout"
             android:theme="@style/AppTheme.AppBarOverlay"
@@ -349,7 +349,7 @@
                                     android:focusable="false"
                                     android:hint="@string/about"
                                     android:inputType="textMultiLine"
-                                    android:text="Начиная жизнеописание героя моего, Алексея Федоровича Карамазова, нахожусь в некотором недоумении."/>
+                                    android:text="Начиная жизнеописание героя моего, Алексея Федоровича Карамазова, нахожусь в некотором недоумении. А именно: хотя я и называю Алексея Федоровича моим героем, но однако сам знаю, что человек он отнюдь не великий, а посему и предвижу неизбежные вопросы в роде таковых: чем же замечателен ваш Алексей Федорович, что вы выбрали его своим героем? Что сделал он такого? Кому и чем известен? Почему я, читатель, должен тратить время на изучение фактов его жизни?"/>
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
                     </LinearLayout>

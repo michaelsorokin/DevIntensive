@@ -1,6 +1,9 @@
 package devintensive.softdesign.com.devintensive.ui.activities;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +26,8 @@ import java.util.List;
 import devintensive.softdesign.com.devintensive.R;
 import devintensive.softdesign.com.devintensive.data.managers.DataManager;
 import devintensive.softdesign.com.devintensive.utils.ConstantManager;
+import devintensive.softdesign.com.devintensive.utils.RoundedAvatarDrawable;
+import devintensive.softdesign.com.devintensive.utils.RoundedAvatarProvider;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -192,6 +197,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void setupDrawer() {
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        ImageView navImgView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.avatar_id);
+        Bitmap bitmap = (Bitmap) ((BitmapDrawable) getResources().getDrawable(R.drawable.avatar)).getBitmap();
+        /* TODO сделать третьим способом
+                RoundedAvatarDrawable roundedAvatarDrawable = new RoundedAvatarDrawable(bitmap);
+                navImgView.setImageBitmap(roundedAvatarDrawable.getBitmap());
+        */
+        navImgView.setImageBitmap(RoundedAvatarProvider.getRoundedBitmap(bitmap));
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {

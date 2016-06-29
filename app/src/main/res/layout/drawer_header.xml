@@ -10,7 +10,7 @@
     android:background="@drawable/header_bg">
 
     <ImageView
-        android:id="@+id/avatar"
+        android:id="@+id/avatar_id"
         android:layout_width="@dimen/picture_size"
         android:layout_height="@dimen/picture_size"
         android:layout_marginTop="@dimen/spacing_normal_16"
