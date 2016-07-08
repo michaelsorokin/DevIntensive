@@ -6,7 +6,14 @@
 
     <color name="gray">#5d5d5d</color>
     <color name="light_gray">#9c9c9c</color>
+    <color name="gray_background">#454545</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="error_info">#644f4f</color>
+    <color name="correct_info">#485b44</color>
+
+
 
 </resources>
