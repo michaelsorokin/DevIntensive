@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -37,6 +38,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.vicmikhailau.maskededittext.MaskedWatcher;
@@ -53,9 +55,14 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import devintensive.softdesign.com.devintensive.R;
 import devintensive.softdesign.com.devintensive.data.managers.DataManager;
+import devintensive.softdesign.com.devintensive.data.network.req.UploadFileReq;
 import devintensive.softdesign.com.devintensive.utils.ConstantManager;
 import devintensive.softdesign.com.devintensive.utils.RoundedAvatarProvider;
 import devintensive.softdesign.com.devintensive.utils.UserInfoWatcher;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -80,6 +87,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindViews({ R.id.phone_layout, R.id.mail_layout, R.id.vk_layout, R.id.github_layout })
     List<TextInputLayout> mUserInfoLayouts;
 
+    @BindViews({ R.id.raiting_tv, R.id.code_lines_tv, R.id.project_tv})
+    List<TextView> mUserValuesViews;
+
     private AppBarLayout.LayoutParams mAppBarParams;
     private DataManager mDataManager;
 
@@ -98,6 +108,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         subscribeOnListeners();
         setupToolbar();
         setupDrawer();
+        initUserInfoValue();
+        initUserFields();
+        initUserInfo();
 
         mUserInfo.get(ConstantManager.MAKE_CALL).addTextChangedListener(new MaskedWatcher("*#(###)###-##-##"));
 
@@ -115,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
         changeEditMode(mCurrentEditMode);
-        loadUserInfoValue();
+
         Picasso.with(this)
                 .load(mDataManager.getPreferencesManager().loadUserPhoto())
                 .placeholder(R.drawable.user_photo) //TODO нужно сделать сюда плейсхолдер + трансформ + кроп.
@@ -255,6 +268,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case ConstantManager.REQUEST_GALLERY_PICTURE:
                 if(resultCode == RESULT_OK && data != null) {
                     mSelectedImage = data.getData();
+                    if(!mDataManager.getPreferencesManager().loadUserPhoto().equals(mSelectedImage)) {
+
+                        String[] proj = { MediaStore.Images.Media.DATA };
+                        Cursor cursor = this.getContentResolver().query(data.getData(),  proj, null, null, null);
+                        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor.moveToFirst();
+                        String path = cursor.getString(index);
+                        cursor.close();
+
+                        uploadPhotoToServer(Uri.parse(path));
+                    }
                     insertProfileImage(mSelectedImage);
                 }
                 break;
@@ -262,6 +286,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case ConstantManager.REQUEST_CAMERA_PICTURE:
                 if(resultCode == RESULT_OK && mPhotoFile != null) {
                     mSelectedImage = Uri.fromFile(mPhotoFile);
+                    if(!mDataManager.getPreferencesManager().loadUserPhoto().equals(mSelectedImage)) {
+                        uploadPhotoToServer(mSelectedImage);
+                    }
                     insertProfileImage(mSelectedImage);
                 }
                 break;
@@ -303,6 +330,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    private void uploadPhotoToServer(Uri imageUri){
+        Call<ResponseBody> call = mDataManager.uploadPhoto(new UploadFileReq().photo(imageUri));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                showSnackbar("Успешно обновили");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showSnackbar("Что то пошло не так!");
+            }
+        });
+    }
+
     private void showSnackbar (String message) {
         Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
@@ -320,13 +362,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void setupDrawer() {
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
+
         ImageView navImgView = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.avatar_id);
-        Bitmap bitmap = (Bitmap) ((BitmapDrawable) getResources().getDrawable(R.drawable.avatar)).getBitmap();
-        /* TODO сделать третьим способом
-                RoundedAvatarDrawable roundedAvatarDrawable = new RoundedAvatarDrawable(bitmap);
-                navImgView.setImageBitmap(roundedAvatarDrawable.getBitmap());
-        */
-        navImgView.setImageBitmap(RoundedAvatarProvider.getRoundedBitmap(bitmap));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
@@ -363,11 +400,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             hideProfilePlaceholder();
             unlockToolbar();
             mCollapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.white));
-            saveUserInfoValue();
+            saveUserFields();
         }
     }
 
-    private void loadUserInfoValue() {
+    private void initUserFields() {
 
         List<String> userData = mDataManager.getPreferencesManager().loadUserProfileData();
         for (int  i = 0;  i < userData.size();  i++) {
@@ -375,12 +412,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void saveUserInfoValue() {
+
+    private void saveUserFields() {
         List<String> userData = new ArrayList<>();
         for (EditText userFieldView : mUserInfo) {
             userData.add(userFieldView.getText().toString());
         }
         mDataManager.getPreferencesManager().saveUserProfileData(userData);
+    }
+
+    private void initUserInfoValue() {
+
+        List<String> userData = mDataManager.getPreferencesManager().loadUserProfileValues();
+        for (int i = 0; i < userData.size(); i++) {
+            mUserValuesViews.get(i).setText(userData.get(i));
+        }
+    }
+
+    private void initUserInfo() {
+
+        List<String> userInfo = mDataManager.getPreferencesManager().loadUserProfileInfo();
+        String personInfo = userInfo.get(0) + " " + userInfo.get(0);
     }
 
     private void loadPhotoFromGalery () {

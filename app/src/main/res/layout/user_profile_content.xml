@@ -23,8 +23,9 @@
                 style="@style/box_container">
 
                 <TextView
+                    android:id="@+id/raiting_tv"
                     style="@style/text.title"
-                    android:text="5"/>
+                    android:text="0"/>
 
                 <TextView
                     style="@style/text"
@@ -40,8 +41,9 @@
                 style="@style/box_container.box_container_middle">
 
                 <TextView
+                    android:id="@+id/code_lines_tv"
                     style="@style/text.title"
-                    android:text="5"/>
+                    android:text="0"/>
 
                 <TextView
                     style="@style/text"
@@ -57,8 +59,9 @@
                 style="@style/box_container">
 
                 <TextView
+                    android:id="@+id/project_tv"
                     style="@style/text.title"
-                    android:text="5"/>
+                    android:text="0"/>
 
                 <TextView
                     style="@style/text"

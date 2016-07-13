@@ -4,14 +4,6 @@ public interface ConstantManager {
 
     String TAG_PREFIX = "DEV ";
 
-    int VIEW_MODE = 0;
-    int EDIT_MODE = 1;
-
-    int MAKE_CALL   = 0;
-    int SEND_EMAIL  = 1;
-    int OPEN_VK     = 2;
-    int OPEN_GITHUB = 3;
-
     String EDIT_MODE_KEY = "EDIT_MODE_KEY";
 
     String USER_PHONE_KEY = "USER_1_KEY";
@@ -20,6 +12,30 @@ public interface ConstantManager {
     String USER_GIT_KEY = "USER_4_KEY";
     String USER_BIO_KEY = "USER_5_KEY";
     String USER_PHOTO_KEY = "USER_6_KEY";
+
+    String USER_FIRST_NAME = "USER_FIRST_NAME";
+    String USER_SECOND_NAME = "USER_SECOND_NAME";
+
+    String USER_AVATAR_KEY = "USER_AVATAR_KEY";
+
+    String AUTH_TOKEN_KEY = "AUTH_TOKEN_KEY";
+    String USER_ID_KEY = "USER_ID_KEY";
+
+    String USER_RAITING_VALUE = "USER_RAITING_VALUE";
+    String USER_CODE_LINES_VALUE = "USER_CODE_LINES_VALUE";
+    String USER_PROJECT_VALUE = "USER_PROJECT_VALUE";
+
+    int VIEW_MODE = 0;
+    int EDIT_MODE = 1;
+
+    int MAKE_CALL   = 0;
+    int SEND_EMAIL  = 1;
+    int OPEN_VK     = 2;
+    int OPEN_GITHUB = 3;
+
+    int USER_RAITING = 0;
+    int USER_CODE_LINES = 1;
+    int USER_PROJECT = 2;
 
     int LOAD_PROFILE_PHOTO = 1;
 
@@ -30,4 +46,5 @@ public interface ConstantManager {
     int REQUEST_CAMERA_PICTURE = 99;
     int PERMISSION_REQUEST_SETTING_CODE = 100;
     int CAMERA_REQUEST_PERMISSION_CODE = 101;
+
 }
