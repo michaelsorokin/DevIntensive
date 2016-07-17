@@ -4,6 +4,7 @@ import devintensive.softdesign.com.devintensive.data.network.RestService;
 import devintensive.softdesign.com.devintensive.data.network.ServiceGenerator;
 import devintensive.softdesign.com.devintensive.data.network.req.UserLoginReq;
 import devintensive.softdesign.com.devintensive.data.network.res.AuthModelRes;
+import devintensive.softdesign.com.devintensive.data.network.res.UserListRes;
 import devintensive.softdesign.com.devintensive.data.network.res.UserModelRes;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -46,5 +47,8 @@ public class DataManager {
 
     public Call<AuthModelRes> checkUser (String userId) {return mRestService.checkUser(userId); }
 
+    public Call<UserListRes> getUserList() {
+        return mRestService.getUserList();
+    }
     // endregion
 }

@@ -25,6 +25,10 @@ public interface ConstantManager {
     String USER_CODE_LINES_VALUE = "USER_CODE_LINES_VALUE";
     String USER_PROJECT_VALUE = "USER_PROJECT_VALUE";
 
+    String USER_LOGIN_KEY = "USER_LOGIN_KEY";
+    String USER_PASSWORD_KEY = "USER_PASSWORD_KEY";
+    String USER_SAVEME_KEY = "USER_SAVEME_KEY";
+
     int VIEW_MODE = 0;
     int EDIT_MODE = 1;
 
@@ -46,5 +50,12 @@ public interface ConstantManager {
     int REQUEST_CAMERA_PICTURE = 99;
     int PERMISSION_REQUEST_SETTING_CODE = 100;
     int CAMERA_REQUEST_PERMISSION_CODE = 101;
+
+    String PARCELABLE_KEY = "PARCELABLE_KEY";
+
+    int RESPONSE_OK         = 200;
+    int RESPONSE_ACC_DENIED = 404;
+    int RESPONSE_FORBIDDEN  = 403;
+
 
 }

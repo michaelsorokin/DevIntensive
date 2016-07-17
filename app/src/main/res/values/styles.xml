@@ -62,4 +62,124 @@
         <item name="android:fullDark">@android:color/transparent</item>
     </style>
 
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+    </style>
+
+    <!-- Auth layouts -->
+    <style name="authorization_CV_Box">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/auth_card_240</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="authorization_TV_Email">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/color_accent</item>
+        <item name="android:textSize">@dimen/typography_medium_20</item>
+    </style>
+
+    <style name="authorization_LL_Login">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_medium_48</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="authorization_LL_Email">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medial_24</item>
+    </style>
+
+    <style name="authorization_LL_All">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/spacing_medial_24</item>
+    </style>
+
+    <style name="authorization_ET_Login">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColorHint">@color/light_gray</item>
+        <item name="android:textSize">@dimen/typography_regular_14</item>
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="authorization_LL_Password">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_medium_48</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="authorization_ET_Password">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColorHint">@color/light_gray</item>
+        <item name="android:textSize">@dimen/typography_regular_14</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="authorization_CB_SaveRequest">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:button">@drawable/custom_checkbox_design</item>
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginRight">@dimen/spacing_small_8</item>
+        <item name="android:checked">false</item>
+    </style>
+
+    <style name="authorization_BL_Enter">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginTop">@dimen/spacing_medium_28</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="authorization_Btn_Login">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/size_small_36</item>
+        <item name="android:background">@drawable/auth_button_bg</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="authorization_TV_ForgotPwd">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medium_28</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+
 </resources>

@@ -141,4 +141,37 @@ public class PreferencesManager {
     public String getUserId () {
         return mSharedPreferences.getString(ConstantManager.USER_ID_KEY, "null");
     }
+
+    public boolean isSaveMeEnabled() {
+        return mSharedPreferences.getBoolean(ConstantManager.USER_SAVEME_KEY, false);
+    }
+
+    public void saveMeEnabled(boolean isEnabled) {
+
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(ConstantManager.USER_SAVEME_KEY, isEnabled);
+        editor.apply();
+    }
+
+    public String loadUserLogin () {
+        return mSharedPreferences.getString(ConstantManager.USER_LOGIN_KEY, "");
+    }
+
+    public void saveUserLogin (String userLogin) {
+
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(ConstantManager.USER_LOGIN_KEY, userLogin);
+        editor.apply();
+    }
+
+    public String loadUserPassword () {
+        return mSharedPreferences.getString(ConstantManager.USER_PASSWORD_KEY, "");
+    }
+
+    public void saveUserPassword (String userPassword) {
+
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(ConstantManager.USER_PASSWORD_KEY, userPassword);
+        editor.apply();
+    }
 }
