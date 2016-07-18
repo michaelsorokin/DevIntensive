@@ -8,12 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import devintensive.softdesign.com.devintensive.R;
 import devintensive.softdesign.com.devintensive.data.managers.DataManager;
 import devintensive.softdesign.com.devintensive.data.network.req.UserLoginReq;
@@ -25,65 +29,58 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AuthorizationActivity extends AppCompatActivity implements View.OnClickListener  {
+public class AuthorizationActivity extends BaseActivity {
 
     public static final String TAG = ConstantManager.TAG_PREFIX + "Auth Activity";
 
-    private Button mSignIn;
-    private TextView mRememberPassword;
-    private EditText mLogin, mPassword;
-    private CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.auth_enter_button)   Button mSignIn;
+    @BindView(R.id.forgot_pass_button)  TextView mRememberPassword;
+    @BindView(R.id.auth_login_editText) EditText mLogin;
+    @BindView(R.id.password_editText)   EditText mPassword;
+    @BindView(R.id.coordinator_layout)  CoordinatorLayout mCoordinatorLayout;
+    @BindView(R.id.login_checkbox)      CheckBox mSaveMeCheckBox;
 
     private DataManager mDataManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
-
-        mSignIn = (Button) findViewById(R.id.auth_enter_button);
-        mRememberPassword = (TextView) findViewById(R.id.forgot_pass_button);
-        mLogin = (EditText) findViewById(R.id.auth_login_editText);
-        mPassword = (EditText) findViewById(R.id.password_editText);
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+        ButterKnife.bind(this);
 
         mDataManager = DataManager.getInstance();
 
-        mRememberPassword.setOnClickListener(this);
-        mSignIn.setOnClickListener(this);
-
-        checkTheWayToStart();
+        defineStartingRoute();
     }
 
-    private void checkTheWayToStart() {
+    private void defineStartingRoute() {
 
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            Call<AuthModelRes> resp = mDataManager.checkUser(mDataManager.getPreferencesManager().getUserId());
+        if(mDataManager.getPreferencesManager().isSaveMeEnabled()){
 
-            resp.enqueue(new Callback<AuthModelRes>() {
-                @Override
-                public void onResponse(Call<AuthModelRes> call, Response<AuthModelRes> response) {
-                    if (response.code() == 200) {
-                        loginSuccess();
-                    }
-                }
+            String login = mDataManager.getPreferencesManager().loadUserLogin();
+            String password = mDataManager.getPreferencesManager().loadUserPassword();
+            /*если мы ранее сохраняли пароль и логин и они непустые, то выставялем галку - запомнить меня,
+            * достаем логин и пароль из настроек и добавляем их в форму */
+            if(!login.isEmpty() && !password.isEmpty()) {
 
-                @Override
-                public void onFailure(Call<AuthModelRes> call, Throwable t) {
-
-                }
-            });
-        } else {
-            showSnackbar("Ошибка связи с сервером");
+                mSaveMeCheckBox.setChecked(true);
+                mLogin.setText(login);
+                mPassword.setText(password);
+            }
         }
+
+        if(NetworkStatusChecker.isNetworkAvailable(this) &&
+                !mDataManager.getPreferencesManager().getUserId().isEmpty() &&
+                !mDataManager.getPreferencesManager().getAuthToken().isEmpty()) {
+            loginSuccess();
+        }
+
     }
 
+    @OnClick({R.id.auth_enter_button, R.id.forgot_pass_button})
+    void submitAuthButton(View v) {
 
-    @Override
-    public void onClick(View v) {
-
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.auth_enter_button:
                 signIn();
                 break;
@@ -106,11 +103,10 @@ public class AuthorizationActivity extends AppCompatActivity implements View.OnC
         saveUserPhoto(userModel);
         saveUserAvatar(userModel);
         loginSuccess();
-
     }
 
     private void loginSuccess() {
-        Intent loginIntent = new Intent(this, MainActivity.class);
+        Intent loginIntent = new Intent(this, UserListActivity.class);
         startActivity(loginIntent);
     }
 
@@ -121,6 +117,16 @@ public class AuthorizationActivity extends AppCompatActivity implements View.OnC
     }
 
     private void signIn() {
+
+        if(mSaveMeCheckBox.isChecked()) {
+            mDataManager.getPreferencesManager().saveMeEnabled(true);
+            /*TODO нужно переделать сохраниение в зашифрованную базу, что бы не хранить пароль в настройках*/
+            mDataManager.getPreferencesManager().saveUserLogin(mLogin.getText().toString());
+            mDataManager.getPreferencesManager().saveUserPassword(mPassword.getText().toString());
+        }
+
+        showProgress();
+
         if(NetworkStatusChecker.isNetworkAvailable(this)) {
 
             Call<UserModelRes> call = mDataManager.loginUser(new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
@@ -128,18 +134,28 @@ public class AuthorizationActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
 
-                    if (response.code() == 200) {
+                    if(response.isSuccessful()) {
                         loginSuccess(response.body());
-                    } else if (response.code() == 404) {
-                        showSnackbar("Неверный логин или пароль.");
                     } else {
-                        showSnackbar("Какая то другая ошибка.");
+                        hideProgress();
+                        if (response.code() == ConstantManager.RESPONSE_ACC_DENIED) {
+                            showSnackbar(getString(R.string.wrong_login_password_error));
+                        } else if (response.code() == ConstantManager.RESPONSE_FORBIDDEN) {
+                            showSnackbar(getString(R.string.not_enought_privileges_error));
+                        } else {
+                            showSnackbar(getString(R.string.unknown_network_error));
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<UserModelRes> call, Throwable t) {
-                    // Обработать ошибки ретрофита
+                    hideProgress();
+                    if (!NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+                        showSnackbar(getString(R.string.no_network_connection_error));
+                    } else {
+                        showSnackbar(String.format("%s: %s", getString(R.string.user_auth_error), t.getMessage()));
+                    }
                 }
             });
         } else {

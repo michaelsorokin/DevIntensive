@@ -544,4 +544,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Intent appSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
         startActivityForResult(appSettings, ConstantManager.PERMISSION_REQUEST_SETTING_CODE);
     }
+
+    private void logout() {
+
+    }
 }

@@ -2,6 +2,7 @@ package devintensive.softdesign.com.devintensive.data.network;
 
 import devintensive.softdesign.com.devintensive.data.network.req.UserLoginReq;
 import devintensive.softdesign.com.devintensive.data.network.res.AuthModelRes;
+import devintensive.softdesign.com.devintensive.data.network.res.UserListRes;
 import devintensive.softdesign.com.devintensive.data.network.res.UserModelRes;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -24,5 +25,8 @@ public interface RestService {
 
     @GET("user/{userId}")
     Call<AuthModelRes> checkUser (@Path("userId") String userId);
+
+    @GET("user/list?orderBy=rating")
+    Call<UserListRes> getUserList();
 
 }

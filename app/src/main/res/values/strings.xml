@@ -16,4 +16,21 @@
     <string name="error_user_mail_message">Некорректный E-mail.</string>
     <string name="error_user_vk_message">Некорректный адрес страницы ВК.</string>
     <string name="error_user_github_message">Некорректный адрес git аккаунта.</string>
+    <string name="profile.bio.dummy">Начиная жизнеописание героя моего, Алексея Федоровича Карамазова, нахожусь в некотором недоумении. А именно: хотя я и называю Алексея Федоровича моим героем, но однако сам знаю, что человек он отнюдь не великий, а посему и предвижу неизбежные вопросы в роде таковых: чем же замечателен ваш Алексей Федорович, что вы выбрали его своим героем? Что сделал он такого? Кому и чем известен? Почему я, читатель, должен тратить время на изучение фактов его жизни?</string>
+    <string name="text.login">Введите Ваш e-mail</string>
+    <string name="text.password">********</string>
+    <string name="save_email_request">Запомнить меня?</string>
+    <string name="auth.enter_string">ВОЙТИ</string>
+    <string name="auth.forgot_password">Забыли пароль?</string>
+    <string name="hint.login">E-mail</string>
+    <string name="hint.password">Password</string>
+
+    <!-- Ошибки -->
+    <string name="no_network_connection_error">Проверьте статус сети</string>
+    <string name="wrong_login_password_error">Неверный логин или пароль.</string>
+    <string name="not_enought_privileges_error">У вас нет привилегий для доступа</string>
+    <string name="unknown_network_error">Неизвестная сетевая ошибка</string>
+    <string name="user_auth_error">Ошибка аудентификации</string>
+    <!-- Ошибки -->
+
 </resources>

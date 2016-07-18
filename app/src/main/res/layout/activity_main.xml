@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:textColor="@color/white"
-                    android:layout_marginTop="@dimen/size_small_24"
+                    android:layout_marginTop="@dimen/size_zero_0"
                     app:layout_collapseMode="pin"/>
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
